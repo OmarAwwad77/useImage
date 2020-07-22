@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useImage } from './hooks/useImage';
 import './App.css';
 
+const imageUrl = 'https://picsum.photos/id/237/1000/500';
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const { hasLoaded, hasError, hasStartedInitialFetch } = useImage(imageUrl);
+
+	return (
+		<div className='App'>
+			<header className='App-header'>
+				{!hasLoaded && <span>Loading..........</span>}
+				{hasLoaded && (
+					<div
+						style={{ height: 500, width: 1000, background: `url(${imageUrl})` }}
+					/>
+				)}
+			</header>
+		</div>
+	);
 }
 
 export default App;
